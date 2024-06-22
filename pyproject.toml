@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tomlchef"
+dynamic = ["version"] # https://semver.org
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+maintainers = [
+    { name = "Henry M. Cording", email = "6aropwr8@duck.com" }
+]
+description = "Build modular and easily configurable Python applications"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Application Frameworks"
+]
+dependencies = [
+    "click",
+    "toml"
+]
+keywords = ["framework", "toml", "configuration", "modular", "recipes"]
+
+[project.urls]
+"Homepage" = "https://github.com/tomlchef/tomlchef"
+"Bug Tracker" = "https://github.com/tomlchef/tomlchef/issues"
+
+[tool.hatch.version]
+path = "tomlchef/_version.py"
+
+[tool.pytype]
+inputs = ["tomlchef", "tests"]

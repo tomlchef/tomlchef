@@ -1,0 +1,45 @@
+name: Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-major-version: [3]
+        python-minor-version: [9, 10, 11, 12]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-major-version }}.${{ matrix.python-minor-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-major-version }}.${{ matrix.python-minor-version }}
+    - name: Install dependencies (Ubuntu/macOS)
+      if: ${{ matrix.os != 'windows-latest' }}
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r .reqs/requirements.txt
+    - name: Install dependencies (Windows)
+      if: ${{ matrix.os == 'windows-latest' }}
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r .reqs/requirements-win.txt
+      shell: bash
+    - name: pylint
+      run: |
+        python -m pylint tomlchef tests
+    - name: pytype
+      if: ${{ matrix.python-minor-version < 12 && matrix.os != 'windows-latest' }}
+      run: |
+        python -m pytype
+    - name: pytest
+      run: |
+        python -m unittest -v
+    - name: build
+      run: |
+        python -m build

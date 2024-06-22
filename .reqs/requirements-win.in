@@ -1,0 +1,5 @@
+build
+pip-tools
+twine
+pylint
+-e file:.
