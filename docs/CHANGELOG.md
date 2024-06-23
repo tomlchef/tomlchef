@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.2.0-a1 - UNDER DEVELOPMENT
+
 ## [0.1.0-a1] - 2024-06-22
 
 _First release._
